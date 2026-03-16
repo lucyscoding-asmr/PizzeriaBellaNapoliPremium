@@ -1,0 +1,31 @@
+import { useEffect, useState } from 'react'
+
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+export function useScramble(text, trigger = true) {
+  const [output, setOutput] = useState(text)
+
+  useEffect(() => {
+    if (!trigger) return
+    let iteration = 0
+
+    const interval = setInterval(() => {
+      setOutput(
+        text
+          .split('')
+          .map((char, i) => {
+            if (char === ' ' || char === '\n') return char
+            if (i < iteration) return text[i]
+            return CHARS[Math.floor(Math.random() * 26)]
+          })
+          .join('')
+      )
+      if (iteration >= text.length) clearInterval(interval)
+      iteration += 0.4
+    }, 40)
+
+    return () => clearInterval(interval)
+  }, [trigger])
+
+  return output
+}
