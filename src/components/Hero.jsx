@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-const letters = 'Napoletana'.split('')
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
 export default function Hero() {
   return (
@@ -8,14 +8,15 @@ export default function Hero() {
                         flex flex-col items-center justify-center 
                         overflow-hidden text-[#F0EDE6] pt-28 pb-0">
 
-      {/* Glow rosso — aggiunto max-w-[100vw] per evitare overflow su mobile */}
+      {/* Glow rosso */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 
                       w-[600px] max-w-[100vw] h-[600px] rounded-full 
                       bg-[#C8102E]/15 blur-[130px] pointer-events-none" />
 
+      {/* Su mobile niente animazione sul wrapper — appare direttamente */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={isMobile ? false : { opacity: 0, y: 40 }}
+        animate={isMobile ? false : { opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center z-10 px-6"
       >
@@ -27,7 +28,6 @@ export default function Hero() {
           style={{ fontSize: 'clamp(2.2rem, 6.5vw, 5rem)' }}>
           La Vera Pizza<br />
 
-          {/* Animazione CSS pura — smooth su mobile e desktop */}
           <span className="text-[#C8102E] italic inline-flex">
             {'Napoletana'.split('').map((letter, i) => (
               <span
@@ -40,7 +40,6 @@ export default function Hero() {
             ))}
           </span>
         </h1>
-
 
         <p className="text-[#F0EDE6]/40 text-lg max-w-md mx-auto mb-8">
           Impasto artigianale, forno a legna,
@@ -70,7 +69,7 @@ export default function Hero() {
                 border border-[#F0EDE6]/10 hover:border-[#00CCBC]/50
                 text-[#F0EDE6] hover:text-[#00CCBC] px-3 py-1.5 md:px-5 md:py-2.5
                 rounded-full text-xs font-semibold transition-all hover:-translate-y-0.5">
-            <img src="https://www.google.com/s2/favicons?domain=deliveroo.com&sz=32" className="w-4 h-4" />
+            <img src="https://www.google.com/s2/favicons?domain=deliveroo.com&sz=32" alt="Deliveroo" className="w-4 h-4" />
             Deliveroo
           </a>
           <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
@@ -78,7 +77,7 @@ export default function Hero() {
                 border border-[#F0EDE6]/10 hover:border-[#FFC244]/50
                 text-[#F0EDE6] hover:text-[#FFC244] px-3 py-1.5 md:px-5 md:py-2.5
                 rounded-full text-xs font-semibold transition-all hover:-translate-y-0.5">
-            <img src="https://www.google.com/s2/favicons?domain=glovoapp.com&sz=32" className="w-4 h-4" />
+            <img src="https://www.google.com/s2/favicons?domain=glovoapp.com&sz=32" alt="Glovo" className="w-4 h-4" />
             Glovo
           </a>
           <a href="https://just-eat.it" target="_blank" rel="noopener noreferrer"
@@ -86,24 +85,20 @@ export default function Hero() {
                 border border-[#F0EDE6]/10 hover:border-[#FF8000]/50
                 text-[#F0EDE6] hover:text-[#FF8000] px-3 py-1.5 md:px-5 md:py-2.5
                 rounded-full text-xs font-semibold transition-all hover:-translate-y-0.5">
-            <img src="https://www.google.com/s2/favicons?domain=just-eat.com&sz=32" className="w-4 h-4" />
+            <img src="https://www.google.com/s2/favicons?domain=just-eat.com&sz=32" alt="Just Eat" className="w-4 h-4" />
             Just Eat
           </a>
         </div>
-
-
       </motion.div>
 
-      {/* Pizza */}
-      <motion.img
+      {/* Pizza — float CSS puro, niente Framer Motion in conflitto */}
+      <img
         src="pizza.webp"
         alt="Pizza Napoletana"
-        initial={{ opacity: 0, y: 60, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
+        fetchpriority="high"
         className="relative z-10 mt-10 w-[500px] max-w-[85vw]
-                   drop-shadow-[0_-20px_80px_rgba(200,16,46,0.4)]"
-        style={{ animation: 'float 5s ease-in-out infinite' }}
+                   drop-shadow-[0_-20px_80px_rgba(200,16,46,0.4)]
+                   animate-[float_5s_ease-in-out_infinite]"
       />
     </section>
   )
