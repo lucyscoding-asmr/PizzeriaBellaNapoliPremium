@@ -27,25 +27,20 @@ export default function Hero() {
           style={{ fontSize: 'clamp(2.2rem, 6.5vw, 5rem)' }}>
           La Vera Pizza<br />
 
-          {/* Word slide-up su "Napoletana" */}
-          <span className="text-[#C8102E] italic inline-flex overflow-hidden px-4 -mx-4 pb-2">
-            {letters.map((letter, i) => (
-              <motion.span
+          {/* Animazione CSS pura — smooth su mobile e desktop */}
+          <span className="text-[#C8102E] italic inline-flex">
+            {'Napoletana'.split('').map((letter, i) => (
+              <span
                 key={i}
-                initial={{ y: '100%', opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.5 + i * 0.045,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-                className="inline-block"
+                className="inline-block animate-letter-up"
+                style={{ animationDelay: `${0.5 + i * 0.045}s` }}
               >
                 {letter}
-              </motion.span>
+              </span>
             ))}
           </span>
         </h1>
+
 
         <p className="text-[#F0EDE6]/40 text-lg max-w-md mx-auto mb-8">
           Impasto artigianale, forno a legna,
