@@ -46,6 +46,9 @@ const reviews = [
   },
 ]
 
+// Rilevamento mobile — eseguito una sola volta fuori dal componente
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
 function Stars({ count }) {
   return (
     <div className="flex gap-0.5">
@@ -110,16 +113,15 @@ export default function Reviews() {
           </div>
         </motion.div>
 
-        {/* Cards */}
+        {/* Cards — animazione disabilitata su mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.map((r, i) => (
             <motion.div
               key={r.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isMobile ? false : { opacity: 0, y: 24 }}
+              whileInView={isMobile ? false : { opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               viewport={{ once: true, margin: '-60px' }}
-              style={{ willChange: 'transform, opacity' }}
               className="bg-[#F0EDE6]/5 border border-[#F0EDE6]/10 hover:border-[#C8102E]/30
                          rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300
                          hover:bg-[#F0EDE6]/8"
