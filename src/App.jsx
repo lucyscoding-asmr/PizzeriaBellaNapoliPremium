@@ -15,16 +15,20 @@ let lenisInstance = null
 export default function App() {
 
   useEffect(() => {
-    lenisInstance = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    })
-    return () => {
-      lenisInstance.destroy()
-      lenisInstance = null
-    }
-  }, [])
+  // Lenis solo su desktop
+  const isMobile = window.matchMedia('(max-width: 768px)').matches
+  if (isMobile) return
+
+  lenisInstance = new Lenis({
+    duration: 1.0,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  })
+  return () => {
+    lenisInstance?.destroy()
+    lenisInstance = null
+  }
+}, [])
 
   // Sincronizza Lenis con il RAF interno di Framer Motion
   useAnimationFrame((time) => {

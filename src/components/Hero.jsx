@@ -101,7 +101,7 @@ export default function Hero() {
 
       {/* Pizza */}
       <motion.img
-        src="pizza.png"
+        src="pizza.webp"
         alt="Pizza Napoletana"
         initial={{ opacity: 0, y: 60, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
