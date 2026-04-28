@@ -248,9 +248,6 @@ export default function Footer() {
           <span className="text-[#F0EDE6]/30 text-xs">
             © 2026 Bella Napoli — Tutti i diritti riservati
           </span>
-          <span className="text-[#F0EDE6]/20 text-xs">
-            Sito demo realizzato da IMLUNAR STUDIO
-          </span>
         </div>
       </div>
 
